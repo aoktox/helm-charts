@@ -37,24 +37,20 @@ spec:
             - name: http
               containerPort: {{ .Values.image.containerPort }}
               protocol: TCP
-          {{- with .Values.probes }}
           livenessProbe:
             httpGet:
-              path: {{ .liveness.path }}
+              path: {{ .Values.probes.liveness.path }}
               port: {{ .Values.image.containerPort }}
             initialDelaySeconds: 300
             periodSeconds: 30
             timeoutSeconds: 10
-          {{- end }}
-          {{- with .Values.probes }}
           readinessProbe:
             httpGet:
-              path: {{ .readiness.path }}
+              path: {{ .Values.probes.readiness.path }}
               port: {{ .Values.image.containerPort }}
             initialDelaySeconds: 300
             periodSeconds: 30
             timeoutSeconds: 10
-          {{- end }}
           resources: {}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
