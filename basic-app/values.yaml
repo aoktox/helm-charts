@@ -85,7 +85,5 @@ affinity: {}
 probes:
   liveness:
     path: /
-    port: http
   readiness:
     path:  /
-    port: http

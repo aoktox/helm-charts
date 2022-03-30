@@ -41,13 +41,19 @@ spec:
           livenessProbe:
             httpGet:
               path: {{ .liveness.path }}
-              port: http
+              port: {{ .Values.image.containerPort }}
+            initialDelaySeconds: 300
+            periodSeconds: 30
+            timeoutSeconds: 10
           {{- end }}
           {{- with .Values.probes }}
           readinessProbe:
             httpGet:
               path: {{ .readiness.path }}
-              port: http
+              port: {{ .Values.image.containerPort }}
+            initialDelaySeconds: 300
+            periodSeconds: 30
+            timeoutSeconds: 10
           {{- end }}
           resources: {}
           resources:
