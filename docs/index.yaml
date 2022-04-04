@@ -3,12 +3,12 @@ entries:
   basic-app:
   - apiVersion: v2
     appVersion: 0.0.1
-    created: "2022-04-04T11:52:22.881673+07:00"
+    created: "2022-04-04T12:02:19.212918+07:00"
     description: A Helm chart for Kubernetes
-    digest: a8c1a0fb596e729b10a7ce92880b855ac2c36a0bb14f07582185278f3ffdb120
+    digest: f4d0c88d4edcd63eaa3abbcb6f43a919296b21cf698ddddc4e500cfa4e3f9af9
     name: basic-app
     type: application
     urls:
     - https://aoktox.github.io/helm-charts/basic-app-0.0.1.tgz
     version: 0.0.1
-generated: "2022-04-04T11:52:22.880871+07:00"
+generated: "2022-04-04T12:02:19.212057+07:00"
