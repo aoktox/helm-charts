@@ -33,24 +33,36 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- with .Values.podEnv }}
+          env:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           ports:
             - name: http
               containerPort: {{ .Values.image.containerPort }}
               protocol: TCP
+          {{- with .Values.probes }}
           livenessProbe:
             httpGet:
-              path: {{ .Values.probes.liveness.path }}
-              port: {{ .Values.image.containerPort }}
-            initialDelaySeconds: 300
-            periodSeconds: 30
-            timeoutSeconds: 10
+              path: {{ .liveness.path }}
+              port: {{ .liveness.port }}
+            initialDelaySeconds: {{ .liveness.initialDelaySeconds }}
+            periodSeconds: {{ .liveness.periodSeconds }}
+            timeoutSeconds: {{ .liveness.timeoutSeconds }}
+            successThreshold: {{ .liveness.successThreshold }}
+            failureThreshold: {{ .liveness.failureThreshold }}
+          {{- end }}
+          {{- with .Values.probes }}
           readinessProbe:
             httpGet:
-              path: {{ .Values.probes.readiness.path }}
-              port: {{ .Values.image.containerPort }}
-            initialDelaySeconds: 300
-            periodSeconds: 30
-            timeoutSeconds: 10
+              path: {{ .readiness.path }}
+              port: {{ .readiness.port }}
+            initialDelaySeconds: {{ .readiness.initialDelaySeconds }}
+            periodSeconds: {{ .readiness.periodSeconds }}
+            timeoutSeconds: {{ .readiness.timeoutSeconds }}
+            successThreshold: {{ .readiness.successThreshold }}
+            failureThreshold: {{ .readiness.failureThreshold }}
+          {{- end }}
           resources: {}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

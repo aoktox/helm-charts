@@ -26,6 +26,8 @@ serviceAccount:
 
 podAnnotations: {}
 
+podEnv: {}
+
 podSecurityContext: {}
   # fsGroup: 2000
 
@@ -85,5 +87,17 @@ affinity: {}
 probes:
   liveness:
     path: /
+    port: 80
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
+    successThreshold: 1
   readiness:
-    path:  /
+    path: /
+    port: 80
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
+    successThreshold: 1
