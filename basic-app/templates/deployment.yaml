@@ -19,7 +19,7 @@ spec:
       {{- end }}
       labels:
         {{- include "basic-app.selectorLabels" . | nindent 8 }}
-        {- if .Values.podLabels }}
+        {{- if .Values.podLabels }}
           {{ toYaml .Values.podLabels | indent 8 }}
         {{- end }}
     spec:
