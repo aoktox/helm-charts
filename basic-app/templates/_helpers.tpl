@@ -40,9 +40,6 @@ helm.sh/chart: {{ include "basic-app.chart" . }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
-{{- if .Values.podLabels }}
-{{ toYaml .Values.podLabels}}
-{{- end }}
 {{- end }}
 
 {{/*
@@ -51,6 +48,9 @@ Selector labels
 {{- define "basic-app.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "basic-app.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
+{{- if .Values.podLabels }}
+{{ toYaml .Values.podLabels}}
+{{- end }}
 {{- end }}
 
 {{/*
