@@ -4,6 +4,7 @@ metadata:
   name: {{ include "basic-app.fullname" . }}
   labels:
     {{- include "basic-app.labels" . | nindent 4 }}
+    {{ toYaml .Values.podLabels | indent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
@@ -19,9 +20,7 @@ spec:
       {{- end }}
       labels:
         {{- include "basic-app.selectorLabels" . | nindent 8 }}
-        {{- if .Values.podLabels }}
-          {{ toYaml .Values.podLabels | indent 8 }}
-        {{- end }}
+        {{ toYaml .Values.podLabels | indent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
